@@ -1,3 +1,8 @@
+---
+layout: default
+title: AI/ML Fundamentals
+---
+
 # AI Interview Preparation Guide
 
 ## Table of Contents

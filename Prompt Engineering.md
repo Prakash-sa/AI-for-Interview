@@ -1,3 +1,8 @@
+---
+layout: default
+title: Prompt Engineering Interview Guide
+---
+
 # Prompt Engineering Interview Guide
 
 ## Table of Contents

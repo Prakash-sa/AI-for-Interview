@@ -1,3 +1,8 @@
+---
+layout: default
+title: Agentic AI Interview Guide
+---
+
 # Agentic AI Interview Guide
 
 ## Table of Contents

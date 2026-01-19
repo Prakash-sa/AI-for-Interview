@@ -1,3 +1,8 @@
+---
+layout: default
+title: Generative AI (GenAI) Interview Guide
+---
+
 # Generative AI (GenAI) Interview Guide
 
 ## Table of Contents
