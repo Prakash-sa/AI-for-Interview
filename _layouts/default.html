@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title | default: site.title }}</title>
+    {% seo %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <div class="brand">
+          <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title }}</a>
+          <p class="site-tagline">{{ site.description }}</p>
+        </div>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="{{ "/" | relative_url }}" {% if page.url == "/" %}class="active"{% endif %}>Home</a>
+          <a href="{{ "/README.md" | relative_url }}">AI/ML Fundamentals</a>
+          <a href="{{ "/GenAI.md" | relative_url }}">Generative AI</a>
+          <a href="{{ "/AgenticAI.md" | relative_url }}">Agentic AI</a>
+          <a href="{{ "/Prompt%20Engineering.md" | relative_url }}">Prompt Engineering</a>
+          <a href="https://github.com/prakashsaini/AI-for-Interview" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </header>
+
+      <main class="site-main">
+        {{ content }}
+      </main>
+
+      <footer class="site-footer">
+        <span>AI Interview Preparation Guide</span>
+        <span class="dot">•</span>
+        <span>Updated {{ site.time | date: "%B %Y" }}</span>
+      </footer>
+    </div>
+  </body>
+</html>
