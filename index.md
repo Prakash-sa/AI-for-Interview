@@ -23,7 +23,7 @@ Master modern generative AI and large language models
 - Covers GPT, BERT, and latest Gen AI architectures
 - Practical implementation details and code examples
 
-### **3. [Agentic AI Systems](AgenticAI.md)**
+### **3. [Agentic AI Systems](/AI-for-Interview/agentic-ai/)**
 Understanding autonomous AI agents and multi-agent systems
 - 15 detailed interview questions
 - Topics: Agent architectures, ReAct, Tool use, Planning, Memory

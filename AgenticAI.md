@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Agentic AI Interview Guide
+permalink: /agentic-ai/
 ---
 
 # Agentic AI Interview Guide
