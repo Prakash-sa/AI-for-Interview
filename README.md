@@ -1,6 +1,7 @@
 ---
 layout: default
 title: AI/ML Fundamentals
+permalink: /ml-fundamentals/
 ---
 
 # AI Interview Preparation Guide

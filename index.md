@@ -14,7 +14,7 @@ title: AI Interview Preparation Guide
     <div class="stat-item"><strong>2025</strong><span>Updated</span></div>
   </div>
   <div class="hero-actions">
-    <a href="README.md" class="btn-primary">Start with Fundamentals →</a>
+    <a href="ml-fundamentals/" class="btn-primary">Start with Fundamentals →</a>
     <a href="https://github.com/prakashsaini/AI-for-Interview" target="_blank" rel="noopener" class="btn-secondary">View on GitHub ↗</a>
   </div>
 </div>
@@ -23,7 +23,7 @@ title: AI Interview Preparation Guide
   <h2 class="home-section-heading">Study Guides</h2>
   <div class="guide-grid">
 
-    <a href="README.md" class="guide-card card-ml">
+    <a href="ml-fundamentals/" class="guide-card card-ml">
       <div class="card-emoji">🧠</div>
       <div class="card-title">AI/ML Fundamentals</div>
       <p class="card-desc">Supervised &amp; unsupervised learning, deep learning, NLP, computer vision, reinforcement learning, and model evaluation.</p>
@@ -33,7 +33,7 @@ title: AI Interview Preparation Guide
       </div>
     </a>
 
-    <a href="GenAI.md" class="guide-card card-gen">
+    <a href="generative-ai/" class="guide-card card-gen">
       <div class="card-emoji">✨</div>
       <div class="card-title">Generative AI</div>
       <p class="card-desc">LLMs, Transformers, BERT &amp; GPT architectures, RAG, fine-tuning, RLHF, prompt engineering, and AI safety.</p>
@@ -43,7 +43,7 @@ title: AI Interview Preparation Guide
       </div>
     </a>
 
-    <a href="AgenticAI.md" class="guide-card card-agent">
+    <a href="agentic-ai/" class="guide-card card-agent">
       <div class="card-emoji">🤖</div>
       <div class="card-title">Agentic AI Systems</div>
       <p class="card-desc">Agent architectures, ReAct, tool use, planning &amp; reasoning, memory management, MCP, multi-agent coordination, and security.</p>
@@ -53,7 +53,7 @@ title: AI Interview Preparation Guide
       </div>
     </a>
 
-    <a href="Prompt%20Engineering.md" class="guide-card card-prompt">
+    <a href="prompt-engineering/" class="guide-card card-prompt">
       <div class="card-emoji">💬</div>
       <div class="card-title">Prompt Engineering</div>
       <p class="card-desc">Prompt design principles, Chain-of-Thought, few-shot learning, advanced techniques, optimization strategies, and common pitfalls.</p>
@@ -63,7 +63,7 @@ title: AI Interview Preparation Guide
       </div>
     </a>
 
-    <a href="Claude.md" class="guide-card card-claude">
+    <a href="claude-code/" class="guide-card card-claude">
       <div class="card-emoji">⚡</div>
       <div class="card-title">Claude Code</div>
       <p class="card-desc">Claude CLI, agentic loops, CLAUDE.md memory, hooks, subagents, MCP, Plan Mode, worktrees, headless mode, and interview one-liners.</p>

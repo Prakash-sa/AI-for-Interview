@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Generative AI (GenAI) Interview Guide
+permalink: /generative-ai/
 ---
 
 # Generative AI (GenAI) Interview Guide

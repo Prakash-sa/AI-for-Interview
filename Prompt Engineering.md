@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Prompt Engineering Interview Guide
+permalink: /prompt-engineering/
 ---
 
 # Prompt Engineering Interview Guide
