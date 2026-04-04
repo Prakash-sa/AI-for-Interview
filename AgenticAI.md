@@ -7,16 +7,72 @@ permalink: /agentic-ai/
 # Agentic AI Interview Guide
 
 ## Table of Contents
-1. [Agentic AI Fundamentals](#agentic-ai-fundamentals)
-2. [Agent Architectures](#agent-architectures)
-3. [Tool Use & Function Calling](#tool-use--function-calling)
-4. [Planning & Reasoning](#planning--reasoning)
-5. [Memory & State Management](#memory--state-management)
-6. [Multi-Agent Systems](#multi-agent-systems)
-7. [Agent Evaluation & Testing](#agent-evaluation--testing)
-8. [Real-World Applications](#real-world-applications)
-9. [Challenges & Solutions](#challenges--solutions)
-10. [Interview Questions & Answers](#interview-questions--answers)
+1. [Roadmaps & Learning Path](#roadmaps--learning-path)
+2. [Agentic AI Fundamentals](#agentic-ai-fundamentals)
+3. [Agent Architectures](#agent-architectures)
+4. [Tool Use & Function Calling](#tool-use--function-calling)
+5. [Planning & Reasoning](#planning--reasoning)
+6. [Memory & State Management](#memory--state-management)
+7. [AI Agent Prerequisites](#ai-agent-prerequisites)
+8. [Prompt Engineering for Agents](#prompt-engineering-for-agents)
+9. [Building Agents & Frameworks](#building-agents--frameworks)
+10. [Multi-Agent Systems](#multi-agent-systems)
+11. [Agent Evaluation & Testing](#agent-evaluation--testing)
+12. [Observability, Security & Ethics](#observability-security--ethics)
+13. [Real-World Applications](#real-world-applications)
+14. [Challenges & Solutions](#challenges--solutions)
+15. [Interview Questions & Answers](#interview-questions--answers)
+
+---
+
+## Roadmaps & Learning Path
+
+### AI Agents roadmap and related roadmap.sh tracks
+
+If you are preparing for AI agent interviews, use the AI Agents roadmap as the main track and then study the adjacent tracks that support production-grade agent work.
+
+**Primary roadmap:**
+- AI Agents interactive roadmap: https://roadmap.sh/ai-agents
+
+**Most relevant adjacent tracks:**
+- AI Engineer roadmap: https://roadmap.sh/ai-engineer
+- AI and Data Scientist roadmap: https://roadmap.sh/ai-and-data-scientist
+- MLOps roadmap: https://roadmap.sh/mlops
+- AI Red Teaming roadmap: https://roadmap.sh/ai-red-teaming
+- Prompt Engineering roadmap: https://roadmap.sh/prompt-engineering
+- Backend roadmap: https://roadmap.sh/backend
+- Git and GitHub roadmap: https://roadmap.sh/git-github
+- API Design roadmap: https://roadmap.sh/api-design
+- Shell / Bash roadmap: https://roadmap.sh/shell-bash
+
+**Detailed roadmap PDF links surfaced from roadmap.sh:**
+- AI Engineer PDF: https://roadmap.sh/pdfs/roadmaps/ai-engineer.pdf
+- MLOps PDF: https://roadmap.sh/pdfs/roadmaps/mlops.pdf
+- Prompt Engineering PDF: https://roadmap.sh/pdfs/roadmaps/prompt-engineering.pdf
+- Backend PDF: https://roadmap.sh/pdfs/roadmaps/backend.pdf
+- Git and GitHub PDF: https://roadmap.sh/pdfs/roadmaps/git-github.pdf
+- API Design PDF: https://roadmap.sh/pdfs/roadmaps/api-design.pdf
+
+Note: roadmap.sh clearly surfaced the interactive AI Agents roadmap, but an AI Agents PDF link was not surfaced in the retrieved results. Use the interactive roadmap page as the source of truth for that track.
+
+### Recommended study order
+
+1. Git and GitHub
+2. Shell / Bash
+3. Backend and API Design
+4. Prompt Engineering
+5. AI Engineer
+6. AI Agents
+7. MLOps
+8. AI Red Teaming
+
+### Why these prerequisite tracks matter
+
+- **Basic backend development:** agents usually call APIs, manage sessions, handle retries, work with queues, and persist state.
+- **Git and terminal usage:** agent engineers constantly inspect repos, run commands, test code, and automate workflows.
+- **REST API knowledge:** most tool invocation is just structured API usage with validation, retries, and auth.
+- **Prompt Engineering:** bad prompts create bad plans, tool misuse, and unstable outputs.
+- **MLOps:** production agents need evaluation, deployment, monitoring, rollback, and cost control.
 
 ---
 
@@ -1047,6 +1103,413 @@ def resume_agent(conversation_id):
 
 ---
 
+## AI Agent Prerequisites
+
+### LLM fundamentals, transformers, and model mechanics
+
+Before building agents, understand:
+- what a transformer is
+- how self-attention works
+- tokenization and embeddings
+- context windows and truncation
+- token-based pricing
+- inference vs training
+- generation controls
+- reasoning models vs standard models
+- open-weight vs closed-weight models
+- fine-tuning vs prompt engineering
+- embeddings, vector search, and RAG
+
+### Interview Topic: Core prerequisites for building AI agents
+
+**Answer:**
+
+You need five layers of knowledge:
+
+**1. LLM Fundamentals**
+- Transformers and attention
+- Tokenization
+- Context windows
+- Sampling and generation
+- Instruction following limitations
+
+**2. Software Engineering Basics**
+- Python or another backend language
+- REST APIs
+- JSON schemas
+- Error handling and retries
+- Git, shell, and debugging
+
+**3. Data and Retrieval**
+- Embeddings
+- Vector search
+- Chunking
+- Metadata filtering
+- RAG design
+
+**4. Agent Systems**
+- tool calling
+- memory
+- planning loops
+- evaluation
+- observability
+
+**5. Production Concerns**
+- cost tracking
+- rate limits
+- prompt injection defense
+- PII handling
+- human oversight
+
+Why this matters:
+- Most agent failures are not model failures alone.
+- They come from weak system design around tools, data, context, and recovery.
+
+### Interview Topic: Tokenization, context windows, and token-based pricing
+
+**Answer:**
+
+**Tokenization:**
+- Models process tokens, not raw words.
+- Tokens may be whole words, subwords, punctuation, or bytes depending on tokenizer.
+- Cost, latency, and context usage are all token-based.
+
+**Context Window:**
+- The context window is the total amount of input plus generated output the model can handle in a request.
+- If context is too large, the system must truncate, summarize, retrieve selectively, or fail.
+
+**Token-Based Pricing:**
+- Most model providers charge separately for input tokens and output tokens.
+- Cached input is often cheaper than fresh input.
+- Long prompts, large tool schemas, chain-of-thought verbosity, and repeated retrieval all increase spend.
+
+Interview answer:
+- Tokenization affects cost and chunking.
+- Context windows affect what the model can remember in one call.
+- Pricing determines whether an agent is economically viable in production.
+
+### Interview Topic: Generation controls and why they matter
+
+**Answer:**
+
+Important controls:
+- **Temperature:** controls randomness
+- **Top-p:** nucleus sampling; restricts token choices to the most likely cumulative mass
+- **Frequency penalty:** discourages repeating the same tokens frequently
+- **Presence penalty:** encourages introducing new concepts rather than repeating existing ones
+- **Max length / max tokens:** caps response size
+- **Stop sequences / stopping criteria:** tell the model where to stop generation
+
+How to use them:
+- Lower temperature for deterministic tool calling and extraction
+- Higher temperature for ideation and creative generation
+- Use max output limits to control cost and latency
+- Use stop sequences for structured multi-step workflows when needed
+
+### Interview Topic: Open-weight vs closed-weight, reasoning vs standard models
+
+**Answer:**
+
+**Open-weight models:**
+- You can download and run model weights yourself
+- More control, deployment flexibility, and customization
+- More operational burden
+
+**Closed-weight models:**
+- Provider-hosted APIs
+- Easier to use
+- Better managed infrastructure and often stronger proprietary performance
+- Less transparency and portability
+
+**Reasoning models:**
+- Spend more compute or internal reasoning effort before answering
+- Better for planning, math, code, and long multi-step tasks
+- Usually slower and more expensive
+
+**Standard models:**
+- Faster and cheaper
+- Better for simple transforms, chat, extraction, or routing
+
+Interview answer:
+- Choose open vs closed based on control, privacy, deployment constraints, and ops maturity.
+- Choose reasoning vs standard based on task difficulty and cost tolerance.
+
+### Interview Topic: Streamed vs unstreamed responses
+
+**Answer:**
+
+**Streamed responses:**
+- tokens arrive incrementally
+- better UX for chat and interactive systems
+- useful when long outputs would otherwise feel slow
+
+**Unstreamed responses:**
+- response arrives only after generation finishes
+- simpler for backends, pipelines, and validation-first flows
+
+Use streaming when:
+- users are waiting interactively
+- partial output is valuable
+
+Avoid streaming when:
+- downstream systems need the complete structured output before acting
+- you need strict validation before display
+
+### Interview Topic: Fine-tuning vs prompt engineering
+
+**Answer:**
+
+**Prompt engineering** changes behavior by changing instructions and examples.
+
+**Fine-tuning** changes model weights using training data.
+
+Use prompt engineering when:
+- tasks change often
+- you need faster iteration
+- format and behavior can be guided with instructions and examples
+
+Use fine-tuning when:
+- you need persistent domain behavior
+- style and format must be highly consistent
+- prompts alone are too long, costly, or brittle
+
+Interview answer:
+- Start with prompt engineering, retrieval, and tool design first.
+- Fine-tune only when repeated evidence shows prompting is not enough.
+
+### Interview Topic: Embeddings, vector search, and RAG
+
+**Answer:**
+
+**Embeddings:**
+- Dense numeric representations of text, code, images, or other data
+- Similar items end up close in vector space
+
+**Vector Search:**
+- Find nearest neighbors to a query embedding
+- Used for semantic retrieval rather than exact keyword matching
+
+**RAG:**
+- Retrieval-Augmented Generation
+- Retrieve relevant external knowledge, then feed it into the model for grounded generation
+
+Basic RAG flow:
+1. ingest data
+2. chunk it
+3. create embeddings
+4. store them in a vector database
+5. retrieve relevant chunks at query time
+6. generate an answer using retrieved context
+
+Interview answer:
+- RAG is often the first reliability upgrade before fine-tuning.
+- Good retrieval quality depends on chunking, embeddings, filtering, reranking, and citation discipline.
+
+### Pricing of common models
+
+Pricing changes frequently, so in interviews focus on pricing structure and tradeoffs, then cite official pricing pages for exact numbers.
+
+Useful current references:
+- OpenAI API pricing: https://openai.com/api/pricing/
+- Anthropic pricing overview: https://docs.anthropic.com/en/docs/about-claude/pricing
+- Gemini API pricing: https://ai.google.dev/gemini-api/docs/pricing?hl=en
+
+As of the retrieved official pricing pages:
+- OpenAI’s API pricing page lists per-million-token rates with separate input, cached input, and output pricing.
+- Anthropic’s pricing page lists model-specific input, cache, and output pricing for Claude families.
+- Google’s Gemini pricing page distinguishes free and paid tiers and notes discounted batch pricing.
+
+---
+
+## Prompt Engineering for Agents
+
+### What is prompt engineering?
+
+Prompt engineering is the discipline of shaping model behavior using instructions, examples, structure, and constraints.
+
+### Writing good prompts for agents
+
+Best practices:
+- be specific about the task
+- provide relevant context
+- use precise technical terms
+- include examples when format matters
+- specify output length and structure
+- define success criteria
+- iterate and test prompts
+
+Agent-specific prompting tips:
+- tell the agent when to use tools
+- specify when it must ask clarifying questions
+- define output schemas for tools and final answers
+- state constraints like latency, cost, or safety requirements
+
+### Interview Topic: What makes a strong prompt for an AI agent?
+
+**Answer:**
+
+A strong agent prompt usually contains:
+- role and objective
+- available tools and when to use them
+- constraints
+- output schema
+- examples
+- failure behavior
+
+Example:
+```text
+You are a support agent. Use the CRM lookup tool before answering account-specific questions.
+Never guess billing status.
+If the lookup fails, ask the user to verify account ID.
+Return JSON with fields: issue_type, answer, follow_up_needed.
+```
+
+Why this works:
+- reduces hallucinations
+- clarifies tool usage
+- improves evaluation
+- keeps downstream integration stable
+
+---
+
+## Building Agents & Frameworks
+
+### AI Agents 101
+
+Core loop:
+1. Perception / user input
+2. Reason and plan
+3. Acting / tool invocation
+4. Observation and reflection
+
+Example use cases:
+- personal assistant
+- code generation
+- data analysis
+- web scraping and crawling
+- NPC or game AI
+
+### Tools / Actions
+
+What is a tool?
+- A callable capability the agent can invoke to affect the outside world or gather information.
+
+Good tool definition includes:
+- **name and description**
+- **input schema**
+- **output schema**
+- **error handling**
+- **usage examples**
+
+Common tools:
+- web search
+- code execution / REPL
+- database queries
+- API requests
+- email / Slack / SMS
+- file system access
+
+### Agent memory
+
+**What is agent memory?**
+- Mechanisms that help the agent retain useful state within a task or across tasks.
+
+Types:
+- **short-term memory:** conversation or current working context
+- **long-term memory:** persistent user or system knowledge
+- **within-prompt memory:** facts included directly in the prompt
+- **external memory:** vector DB, SQL, graph DB, key-value store, or custom system
+
+Maintaining memory:
+- episodic memory stores prior events and interactions
+- semantic memory stores facts, profiles, and stable knowledge
+- summarization and compression reduce token load
+- forgetting or aging strategies remove stale or low-value memory
+
+### Architecture patterns to know
+
+- ReAct
+- Chain of Thought
+- Tree-of-Thought
+- Planner-Executor
+- DAG agents
+- RAG agent
+- MCP-based agent systems
+
+### Model Context Protocol (MCP)
+
+Core MCP pieces:
+- **MCP host:** the application running the model experience
+- **MCP client:** the component that speaks the MCP protocol
+- **MCP server:** the external process or service exposing tools and resources
+
+Creating MCP servers generally requires:
+- tool definitions
+- resource definitions
+- request handling
+- auth and permission model
+- deployment plan
+
+Deployment modes:
+- local desktop
+- remote or cloud
+
+### Building agents manually vs using frameworks
+
+**Manual from scratch**
+- direct LLM API calls
+- implement the agent loop yourself
+- parse model output yourself
+- handle retries, rate limits, and validation manually
+
+Benefits:
+- maximum control
+- fewer abstractions
+- easier to optimize for a narrow use case
+
+Costs:
+- more boilerplate
+- more maintenance
+
+**Framework-based**
+- LangChain
+- LlamaIndex
+- Haystack
+- AutoGen
+- CrewAI
+- Smolagents
+- provider-native tool use such as Anthropic tool use or OpenAI function calling
+
+Benefits:
+- faster prototyping
+- reusable components
+- integrations and observability helpers
+
+Costs:
+- abstraction overhead
+- debugging complexity
+- framework lock-in
+
+### Interview Topic: Choosing between manual implementation and frameworks
+
+**Answer:**
+
+Choose manual implementation when:
+- the workflow is narrow and critical
+- latency matters
+- you want strict control over prompts, retries, memory, and tool execution
+
+Choose a framework when:
+- you need to prototype quickly
+- you want built-in retrieval, agents, tracing, or orchestration
+- the team values speed over perfect control in early stages
+
+Interview answer:
+- Start as simple as possible.
+- Frameworks should remove toil, not hide system behavior you still need to understand.
+
+---
+
 ## Multi-Agent Systems
 
 ### Q6: How do multi-agent systems work?
@@ -1550,6 +2013,80 @@ def monitor_agent():
     # Track trends
     log_metrics(metrics, timestamp=now())
 ```
+
+---
+
+## Observability, Security & Ethics
+
+### Debugging and monitoring
+
+Production agents need:
+- structured logging
+- tracing
+- request IDs
+- tool-call audit trails
+- latency and token metrics
+- failure categorization
+
+Useful observability tools:
+- LangSmith
+- Helicone
+- Langfuse
+- OpenLIT or OpenTelemetry-based tracing
+
+### Evaluation and testing stack
+
+Metrics to track:
+- task completion rate
+- tool success rate
+- groundedness / hallucination rate
+- retrieval precision
+- latency
+- cost per task
+- user satisfaction
+- escalation rate
+
+Testing layers:
+- unit testing for individual tools
+- integration testing for full flows
+- human-in-the-loop evaluation
+- regression test sets
+
+Common evaluation tools:
+- LangSmith
+- Ragas
+- DeepEval
+
+### Security & ethics topics
+
+You should be ready to discuss:
+- prompt injection and jailbreaks
+- tool sandboxing and permissioning
+- data privacy and PII redaction
+- bias and toxicity guardrails
+- safety and red-team testing
+
+### Interview Topic: Securing and monitoring an AI agent in production
+
+**Answer:**
+
+Security controls:
+- validate tool inputs and outputs
+- sandbox code execution tools
+- limit file system and network permissions
+- redact sensitive data
+- separate user instructions from retrieved content
+- require human approval for high-risk actions
+
+Monitoring controls:
+- log every tool call
+- trace multi-step flows
+- track latency, token usage, and failure modes
+- evaluate drift and regressions continuously
+
+Interview answer:
+- Secure agent design is not only about the model.
+- It is about the surrounding system: permissions, validation, observability, and escalation paths.
 
 ---
 
@@ -2992,6 +3529,79 @@ Maturation:
 
 ---
 
+### Q16: What are AI agents in one sentence?
+
+**Answer:**
+
+AI agents are systems that use models plus tools, memory, and iterative control loops to pursue goals and take actions rather than only generate text.
+
+### Q17: What are tools in an AI agent?
+
+**Answer:**
+
+Tools are callable actions that let an agent interact with the world, such as searching the web, querying a database, running code, sending messages, or reading and writing files.
+
+### Q18: What is the agent loop?
+
+**Answer:**
+
+The agent loop is:
+1. perceive input
+2. reason and plan
+3. act through tools
+4. observe results
+5. reflect and continue or stop
+
+### Q19: What is the difference between episodic and semantic memory?
+
+**Answer:**
+
+Episodic memory stores prior experiences and interactions. Semantic memory stores durable facts such as user preferences, account data, or domain knowledge.
+
+### Q20: What is a RAG agent?
+
+**Answer:**
+
+A RAG agent combines retrieval with generation and usually also has tools. It retrieves relevant documents before answering, which improves grounding and reduces hallucinations.
+
+### Q21: What is a planner-executor architecture?
+
+**Answer:**
+
+A planner-executor architecture separates task decomposition from task execution. One component plans the steps, and another component carries them out, which improves modularity and control.
+
+### Q22: What is a DAG agent?
+
+**Answer:**
+
+A DAG agent organizes tasks as a directed acyclic graph where nodes are tasks and edges are dependencies. It is useful for parallelizable workflows and dependency-aware execution.
+
+### Q23: What is MCP and why does it matter for agents?
+
+**Answer:**
+
+MCP is the Model Context Protocol. It standardizes how models connect to external tools, resources, and services, making integrations more portable and structured.
+
+### Q24: Why do AI agent engineers need backend, Git, terminal, and API skills?
+
+**Answer:**
+
+Because real agents are software systems. They need API integration, state management, retries, auth, testing, deployment, version control, and operational debugging.
+
+### Q25: How should you talk about common model pricing in interviews?
+
+**Answer:**
+
+Focus on the pricing model rather than memorizing every number:
+- providers charge per input and output token
+- cached input is often cheaper
+- larger reasoning models cost more than smaller standard models
+- tools, retrieval, long context, and streaming all affect total spend
+
+Then mention that exact prices change and should be checked on the provider’s official pricing page.
+
+---
+
 ## Summary & Key Takeaways
 
 **Core Concepts:**
@@ -3000,6 +3610,9 @@ Maturation:
 3. Tools enable real-world action
 4. Memory and state crucial
 5. Multi-agent systems for complex problems
+6. Strong prerequisites matter: backend, APIs, Git, shell, LLM basics
+7. Retrieval, evaluation, observability, and security are production requirements
+8. Roadmap.sh tracks provide a strong interview learning sequence
 
 **Design Principles:**
 - Start simple, grow complex
@@ -3014,6 +3627,8 @@ Maturation:
 - Plan for failure
 - Monitor metrics
 - Iterate based on feedback
+- Understand pricing and context budgets early
+- Add human approval for high-risk actions
 
 **When to Use:**
 - Complex workflows
@@ -3023,3 +3638,17 @@ Maturation:
 - Need adaptability
 
 Good luck with your agentic AI interviews!
+
+## Sources
+
+- AI Agents roadmap: https://roadmap.sh/ai-agents
+- AI Engineer PDF roadmap: https://roadmap.sh/pdfs/roadmaps/ai-engineer.pdf
+- MLOps PDF roadmap: https://roadmap.sh/pdfs/roadmaps/mlops.pdf
+- Prompt Engineering PDF roadmap: https://roadmap.sh/pdfs/roadmaps/prompt-engineering.pdf
+- Backend PDF roadmap: https://roadmap.sh/pdfs/roadmaps/backend.pdf
+- Git and GitHub PDF roadmap: https://roadmap.sh/pdfs/roadmaps/git-github.pdf
+- API Design PDF roadmap: https://roadmap.sh/pdfs/roadmaps/api-design.pdf
+- roadmap.sh roadmaps hub: https://roadmap.sh/roadmaps
+- OpenAI API pricing: https://openai.com/api/pricing/
+- Anthropic pricing: https://docs.anthropic.com/en/docs/about-claude/pricing
+- Gemini API pricing: https://ai.google.dev/gemini-api/docs/pricing?hl=en

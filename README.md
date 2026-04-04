@@ -2207,3 +2207,11 @@ Recommendation: Proactive outreach with discount offer
   - Kaggle: Competitions and datasets
 
 Good luck with your AI interviews! Remember to practice, stay updated with recent developments, and understand the fundamentals deeply.
+
+
+https://github.com/ktwillcode/AI-Agents-Interview
+
+https://github.com/Devinterview-io/llms-interview-questions
+
+https://github.com/KalyanKS-NLP/LLM-Interview-Questions-and-Answers-Hub/blob/main/Interview_QA/QA_1-3.md
+https://skphd.medium.com/interview-questions-and-answers-on-agentic-ai-9069ed148f3d
